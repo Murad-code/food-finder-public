@@ -1,0 +1,73 @@
+.BusinessList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 4.4rem 10%;
+}
+
+.Business {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 16.66rem;
+  margin: 0 0.5rem 2.3rem 0.5rem;
+
+  .image-container {
+    height: 16.66rem;
+    margin-bottom: 1rem;
+  }
+
+  .title-favourite {
+    display: flex;
+    justify-content: space-between;
+    // border: 1px solid red;
+
+    h2 {
+      // border: 1px solid red;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .star-icon {
+      margin-top: 1rem;
+      &:hover {
+        cursor: pointer;
+        .material-icons {
+          color: #cca353;
+        }
+      }
+    }
+  }
+}
+
+.Business-information {
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1rem;
+  }
+
+  .Business-address {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .Business-reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: right;
+    h3 {
+      color: #cca353;
+      font-weight: 600;
+      margin: 0;
+    }
+    .rating {
+      font-size: 0.88rem;
+      line-height: 1rem;
+    }
+  }
+}
