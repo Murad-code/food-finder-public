@@ -9,37 +9,33 @@ export const Business = (props) => {
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
-    console.log("favourites: " + favourites);
-    axios.post('/favourites/add', { email: email, favourites: favourites })
-  }, [favourites])
-
-  const handleFavourite = async (business) => {
-    // Get request to check if user is stored in database
-    const getResult = await axios.post("/favourites", { email: email });
-    console.log(getResult.data.favouritesId);
-
-    // This section is testing if favourites and business values match
-    setFavourites((prevState) => [business, ...prevState]);
-
-    console.log("business: " + business);
-    // console.log("favourites: " + favourites);
-
-    if (business !== "") {
-      console.log("in if statement");
+    async function sendData() {
+      // Get request to check if user is stored in database
+      const getResult = await axios.post("/favourites", { email: email });
+      console.log(getResult.data.favouritesId);
+  
+      if(getResult.data.favouritesId.length === 0) {
+        // When user's email isnt stored in db, create a record for that email
+        console.log('in if statement')
+        await axios.post('/favourites/add', { email: email, favourites: favourites })
+      } else {
+        // When user has email in db, update the favourites field
+        console.log('in else statement')
+        await axios.put('/favourites/update', { email: email, favourites: favourites })
+      }
     }
 
-    // This one is for testing, the actual post is inside the if/else
-   
+    sendData()
+  }, [favourites])
 
-    // if(getResult.data.favouritesId.length === 0) {
-    //   // When user's email isnt stored in db, create a record for that email
-    //   console.log('in if statement')
-    //   await axios.post('/favourites/add', { email: email, favourites: favourites })
-    // } else {
-    //   // When user has email in db, update the favourites field
-    //   console.log('in else statement')
-    //   await axios.put('/favourites/update', { email: email, favourites: favourites })
-    // }
+
+
+  const handleFavourite =  (business) => {
+    // This section is testing if favourites and business values match
+    
+    
+    setFavourites((prevState) => [business, ...prevState]);
+    // console.log("business: " + business); 
   };
 
   const StarButton = (props) => {
