@@ -1,28 +1,57 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Business.scss";
-import axios from 'axios';
-import { LoginContext } from '../../context/LoginState';
+import axios from "axios";
+import { LoginContext } from "../../context/LoginState";
 
 export const Business = (props) => {
-  const [favourites, setFavourites] = useState([])
+  const [favourites, setFavourites] = useState([]);
   const { isLoggedIn, email } = useContext(LoginContext);
+  const [updating, setUpdating] = useState(false);
 
-  const handleFavourite = async (favourites) => {
-    // Add logic to check if id already exists if not then do setFavourites
-    
+  useEffect(() => {
+    console.log("favourites: " + favourites);
+    axios.post('/favourites/add', { email: email, favourites: favourites })
+  }, [favourites])
 
-    
-    setFavourites(prevState => [favourites, ...prevState])
-    await axios.post('/favourites/add', { favourites: favourites, email: email });
-  }
-  
-  const StarButton = (favourite) => {
+  const handleFavourite = async (business) => {
+    // Get request to check if user is stored in database
+    const getResult = await axios.post("/favourites", { email: email });
+    console.log(getResult.data.favouritesId);
+
+    // This section is testing if favourites and business values match
+    setFavourites((prevState) => [business, ...prevState]);
+
+    console.log("business: " + business);
+    // console.log("favourites: " + favourites);
+
+    if (business !== "") {
+      console.log("in if statement");
+    }
+
+    // This one is for testing, the actual post is inside the if/else
+   
+
+    // if(getResult.data.favouritesId.length === 0) {
+    //   // When user's email isnt stored in db, create a record for that email
+    //   console.log('in if statement')
+    //   await axios.post('/favourites/add', { email: email, favourites: favourites })
+    // } else {
+    //   // When user has email in db, update the favourites field
+    //   console.log('in else statement')
+    //   await axios.put('/favourites/update', { email: email, favourites: favourites })
+    // }
+  };
+
+  const StarButton = (props) => {
     return (
-      <div className="star-icon" onClick={() => handleFavourite(favourite)}>
-      <span className="material-icons">star_rate</span>
-    </div>
-    )
-  }
+      <div
+        className="star-icon"
+        onClick={() => handleFavourite(props.business)}
+      >
+        <span className="material-icons">star_rate</span>
+      </div>
+    );
+  };
 
   const BusinessComponent = () => {
     return props.business.map((business) => {
@@ -33,7 +62,7 @@ export const Business = (props) => {
           </div>
           <div className="title-favourite">
             <h2>{business.name}</h2>
-            {isLoggedIn ? <StarButton favourite={business.id}/> : null}
+            {isLoggedIn ? <StarButton business={business.id} /> : null}
           </div>
           <div className="Business-information">
             <div className="Business-address">

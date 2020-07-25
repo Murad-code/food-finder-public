@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { yelp } = require('../controllers/yelp.js');
-const { addFavourites, getFavourites } = require('../controllers/favourites');
+const { addFavourites, getFavourites, updateFavourites } = require('../controllers/favourites');
 
 router
     .route('/favourites')
@@ -11,6 +11,10 @@ router
 router
     .route('/favourites/add')
     .post(addFavourites)
+
+router
+    .route('/favourites/update')
+    .put(updateFavourites)
 
 // This is Yelp route, leave it
 router
