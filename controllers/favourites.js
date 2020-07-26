@@ -1,4 +1,5 @@
 const User = require('../models/users');
+const { query } = require('express');
 
 exports.getFavourites = async (req, res, next) => {
     try {
@@ -45,9 +46,11 @@ exports.addFavourites = async (req, res, next) => {
 exports.updateFavourites = async (req, res, next) => {
     try {
         const { favourites, email } = req.body;
-        User.updateOne({ email: email }, { favourites: favourites });
+        const result = await User.updateOne({ email: email }, { $set: {favourites: favourites } });
+
         return res.status(200).json({
-            update: true
+            update: true,
+            user: result
         })
     } catch (err) {
         if (err.name === 'ValidationError') {
@@ -60,7 +63,7 @@ exports.updateFavourites = async (req, res, next) => {
         } else {
             return res.status(500).json({
                 success: false,
-                error: 'Server Error'
+                error: 'Server Error: ' + err
             });
         }
     }

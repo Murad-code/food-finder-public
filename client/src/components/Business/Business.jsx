@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import "./Business.scss";
 import axios from "axios";
 import { LoginContext } from "../../context/LoginState";
@@ -6,36 +6,58 @@ import { LoginContext } from "../../context/LoginState";
 export const Business = (props) => {
   const [favourites, setFavourites] = useState([]);
   const { isLoggedIn, email } = useContext(LoginContext);
-  const [updating, setUpdating] = useState(false);
+  const [userCreated, setUserStatus] = useState(false);
 
-  useEffect(() => {
-    async function sendData() {
-      // Get request to check if user is stored in database
-      const getResult = await axios.post("/favourites", { email: email });
-      console.log(getResult.data.favouritesId);
-  
-      if(getResult.data.favouritesId.length === 0) {
+  useLayoutEffect(() => {
+    const sendData = async () => {
+      if (!userCreated) {
         // When user's email isnt stored in db, create a record for that email
-        console.log('in if statement')
-        await axios.post('/favourites/add', { email: email, favourites: favourites })
+        console.log("in if statement");
+        await axios.post("/favourites/add", {
+          email: email,
+          favourites: favourites,
+        });
       } else {
         // When user has email in db, update the favourites field
-        console.log('in else statement')
-        await axios.put('/favourites/update', { email: email, favourites: favourites })
+        console.log("in else statement");
+        await axios.put("/favourites/update", {
+          email: email,
+          favourites: favourites,
+        });
       }
+    };
+
+    sendData();
+  }, [favourites]);
+
+  const handleFavourite = async (business) => {
+    const res = await axios.post("/favourites", { email: email });
+    let curr;
+    try {
+      curr = res.data.favouritesId[0].favourites;
+      setUserStatus(true);
+
+      // Gets the users favourites in db and updates favourites state
+      // setFavourites((prevState) => curr);
+
+      // Checking if business is already stored in users favourites
+      for (let i = 0; i < curr.length; i++) {
+        if (business === curr[i]) {
+          return;
+        }
+      }
+
+      setFavourites(() => [business, ...curr]);
+      
+    } catch (err) {
+      setUserStatus(false);
+      console.log("New user");
+      setFavourites(() => [business]);
+
     }
 
-    sendData()
-  }, [favourites])
-
-
-
-  const handleFavourite =  (business) => {
-    // This section is testing if favourites and business values match
-    
-    
-    setFavourites((prevState) => [business, ...prevState]);
-    // console.log("business: " + business); 
+    // Checks if user is already stored in db, if so, then update current users favourites field
+    // curr.length === 0 ? setUserStatus(false) : setUserStatus(true)
   };
 
   const StarButton = (props) => {

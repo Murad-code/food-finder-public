@@ -26,9 +26,7 @@ function App() {
       setBusiness({ businesses: res.data });
     } else {
       console.log('businesses is empty');
-    }
-  
-    
+    } 
   }
 
   return (
