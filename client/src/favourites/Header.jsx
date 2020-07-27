@@ -3,9 +3,9 @@ import "./Header.scss";
 // import { ReactComponent as ProfileIcon } from "./ProfileIcon.svg";
 import axios from "axios";
 import { GoogleLogout } from "react-google-login";
-import { LoginContext } from "../../context/LoginState";
+import { LoginContext } from "../context/LoginState";
 
-export const Header = () => {
+export const FavouritesHeader = () => {
   const [dropdown, setDropdown] = useState(false);
 
   const { isLoggedIn, setLogIn, name, email, imageUrl } = useContext(
@@ -18,11 +18,11 @@ export const Header = () => {
     setDropdown(!dropdown);
   };
 
-  const loadFavourites = async () => {
-    await axios.post("/favourites", { email: email });
+  // const loadFavourites = async () => {
+  //   await axios.post("/favourites", { email: email });
 
-    // Do stuff here ...
-  };
+  //   // Do stuff here ...
+  // };
 
   const Profile = (props) => {
     return <div className="Profile">{isLoggedIn && props.children}</div>;
@@ -54,9 +54,6 @@ export const Header = () => {
   const Dropdown = () => {
     return (
       <ul id="Dropdown">
-        <li onClick={loadFavourites}>
-          <a href="#">Favourites</a>
-        </li>
         <span></span>
         <GoogleLogout
           clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./Business.scss";
 import axios from "axios";
 import { LoginContext } from "../../context/LoginState";
@@ -8,26 +8,32 @@ export const Business = (props) => {
   const { isLoggedIn, email } = useContext(LoginContext);
   const [userCreated, setUserStatus] = useState(false);
 
-  useLayoutEffect(() => {
-    const sendData = async () => {
-      if (!userCreated) {
-        // When user's email isnt stored in db, create a record for that email
-        console.log("in if statement");
-        await axios.post("/favourites/add", {
-          email: email,
-          favourites: favourites,
-        });
-      } else {
-        // When user has email in db, update the favourites field
-        console.log("in else statement");
-        await axios.put("/favourites/update", {
-          email: email,
-          favourites: favourites,
-        });
-      }
-    };
+  const isInitialMount = useRef(true);
 
-    sendData();
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      const sendData = async () => {
+        if (!userCreated) {
+          // When user's email isnt stored in db, create a record for that email
+          console.log("in if statement");
+          await axios.post("/favourites/add", {
+            email: email,
+            favourites: favourites,
+          });
+        } else {
+          // When user has email in db, update the favourites field
+          console.log("in else statement");
+          await axios.put("/favourites/update", {
+            email: email,
+            favourites: favourites,
+          });
+        }
+      };
+
+      sendData();
+    }
   }, [favourites]);
 
   const handleFavourite = async (business) => {
@@ -48,12 +54,10 @@ export const Business = (props) => {
       }
 
       setFavourites(() => [business, ...curr]);
-      
     } catch (err) {
       setUserStatus(false);
       console.log("New user");
       setFavourites(() => [business]);
-
     }
 
     // Checks if user is already stored in db, if so, then update current users favourites field
