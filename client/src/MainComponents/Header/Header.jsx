@@ -5,7 +5,7 @@ import axios from "axios";
 import { GoogleLogout } from "react-google-login";
 import { LoginContext } from "../../context/LoginState";
 
-export const Header = () => {
+export const Header = (props) => {
   const [dropdown, setDropdown] = useState(false);
 
   const { isLoggedIn, setLogIn, name, email, imageUrl } = useContext(
@@ -19,8 +19,7 @@ export const Header = () => {
   };
 
   const loadFavourites = async () => {
-    await axios.post("/favourites", { email: email });
-
+    props.setFavouritesStatus(true);
     // Do stuff here ...
   };
 

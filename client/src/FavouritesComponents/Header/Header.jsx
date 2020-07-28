@@ -3,7 +3,7 @@ import "./Header.scss";
 // import { ReactComponent as ProfileIcon } from "./ProfileIcon.svg";
 import axios from "axios";
 import { GoogleLogout } from "react-google-login";
-import { LoginContext } from "../context/LoginState";
+import { LoginContext } from "../../context/LoginState";
 
 export const FavouritesHeader = () => {
   const [dropdown, setDropdown] = useState(false);
