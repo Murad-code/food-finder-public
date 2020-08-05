@@ -1,39 +1,74 @@
-#main {
+.main {
+  // border: 5px solid green;
   position: fixed;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   margin: 0;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.9);
-  border-bottom: solid 1px #474a4d;
+  // border-bottom: solid 1px #474a4d;
   color: white;
   user-select: none;
 }
 
-h1 {
+.Fav-Back {
+  width: 10%;
+  // border: 1px solid red;
+  text-align: center;
+
+  .BackBtn {
+    margin-top: .7rem;
+    padding: 1rem;
+    // border: 1px solid yellow;
+  
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      // filter: brightness(1.2);
+    }
+  }
+}
+
+.Fav-Title {
+  // border: 1px solid purple;
   box-sizing: border-box;
-  margin: 0;
-  margin-left: auto;
-  padding-top: 0.66rem;
+  padding: 0.1rem 0;
   text-align: center;
   font-family: "Raleway", sans-serif;
   letter-spacing: 0.2rem;
   font-size: 1.8rem;
   height: 100%;
   color: #fff;
+
+  .header-1 {
+    // border: 1px solid red;
+    h4 {
+      font-size: 1.2rem;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .header-2 {
+    // border: 1px solid blue;
+    h2 {
+      font-size: 2rem;
+      padding: 0.5rem;
+      margin: 0;
+    }
+  }
 }
 
-.Profile {
+.Fav-Profile {
   // border: 1px solid red;
   display: flex;
-  position: absolute;
-  right: 1rem;
+  padding-right: 1rem;
   background-size: cover;
-  width: 10rem;
-  height: 3.5rem;
+  width: 10%;
+  padding-top: .7rem;
 
   .Name {
     width: 70%;
@@ -43,7 +78,7 @@ h1 {
   }
 
   .ProfileButton {
-    margin-right: 0.5rem;
+    // margin-right: 0.5rem;
     margin-top: 0.4rem;
     width: 2.7rem;
     height: 2.7rem;
@@ -57,9 +92,9 @@ h1 {
   }
 }
 
-#Dropdown {
+.Dropdown {
   position: absolute;
-  top: 2.7rem;
+  top: 4.2rem;
   width: 10rem;
   right: 0.7rem;
   background-color: rgba(0, 0, 0, 0.65);

@@ -12,9 +12,6 @@ export const Main = (props) => {
   });
 
   const searchYelp = async (term, location, sortBy) => {
-    // const businesses = await Yelp.search(term, location, sortBy);
-    // setBusiness({ businesses: businesses });
-
     const res = await axios.post("/search", {
       term: term,
       location: location,

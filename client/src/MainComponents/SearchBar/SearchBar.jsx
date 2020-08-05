@@ -86,7 +86,6 @@ export const SearchBar = (props) => {
   const responseGoogle = (response) => {
     setLogIn(true);
     const Obj = response.profileObj;
-    console.log('id: '+ Obj.email)
     addProfileData(Obj.name, Obj.email, Obj.imageUrl);
   };
 

@@ -20,7 +20,6 @@ export const Header = (props) => {
 
   const loadFavourites = async () => {
     props.setFavouritesStatus(true);
-    // Do stuff here ...
   };
 
   const Profile = (props) => {

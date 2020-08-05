@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import "./Header.scss";
+import "./FavHeader.scss";
 // import { ReactComponent as ProfileIcon } from "./ProfileIcon.svg";
 import axios from "axios";
 import { GoogleLogout } from "react-google-login";
 import { LoginContext } from "../../context/LoginState";
 
-export const FavouritesHeader = () => {
+export const FavHeader = (props) => {
   const [dropdown, setDropdown] = useState(false);
 
   const { isLoggedIn, setLogIn, name, email, imageUrl } = useContext(
@@ -16,8 +16,12 @@ export const FavouritesHeader = () => {
     console.log("logged out");
     setLogIn(false);
     setDropdown(!dropdown);
+    props.setFavouritesStatus();
   };
 
+  const back = () => {
+    props.setFavouritesStatus();
+  }
   // const loadFavourites = async () => {
   //   await axios.post("/favourites", { email: email });
 
@@ -25,7 +29,7 @@ export const FavouritesHeader = () => {
   // };
 
   const Profile = (props) => {
-    return <div className="Profile">{isLoggedIn && props.children}</div>;
+    return <div className="Fav-Profile">{isLoggedIn && props.children}</div>;
   };
 
   const Name = (props) => {
@@ -40,7 +44,6 @@ export const FavouritesHeader = () => {
     return (
       <>
         <img
-          // icon={<ProfileIcon />}
           src={imageUrl}
           className="ProfileButton"
           onClick={() => setDropdown(!dropdown)}
@@ -53,7 +56,7 @@ export const FavouritesHeader = () => {
 
   const Dropdown = () => {
     return (
-      <ul id="Dropdown">
+      <ul className="Dropdown">
         <span></span>
         <GoogleLogout
           clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
@@ -68,15 +71,28 @@ export const FavouritesHeader = () => {
 
   const Title = () => {
     return (
-      <div id="Title">
-        <h1>Food-Finder</h1>
+      <div className="Fav-Title">
+        <div className="header-1">
+          <h4>Food-Finder</h4>
+        </div>
+        <div className="header-2">
+          <h2>Favourites</h2>
+        </div>
+      </div>
+    );
+  };
+
+  const BackButton = () => {
+    return (
+      <div className="Fav-Back" onClick={back}>
+        <i className="material-icons md-48 BackBtn">arrow_back</i>
       </div>
     );
   };
 
   return (
-    <header id="main">
-      <div id="Span"></div>
+    <header className="main">
+      <BackButton />
       <Title />
       <Profile>
         <Name />

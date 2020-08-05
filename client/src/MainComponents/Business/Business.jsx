@@ -11,6 +11,7 @@ export const Business = (props) => {
   const isInitialMount = useRef(true);
 
   useEffect(() => {
+    // This if statement stops useEffect running sendData on initialisation
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
@@ -59,9 +60,6 @@ export const Business = (props) => {
       console.log("New user");
       setFavourites(() => [business]);
     }
-
-    // Checks if user is already stored in db, if so, then update current users favourites field
-    // curr.length === 0 ? setUserStatus(false) : setUserStatus(true)
   };
 
   const StarButton = (props) => {
@@ -91,7 +89,6 @@ export const Business = (props) => {
               <p>{business.address}</p>
               <p>{business.city}</p>
               <p>{business.zipCode}</p>
-              {/* <p>{business.id}</p> */}
             </div>
             <div className="Business-reviews">
               <h3>{business.category}</h3>
