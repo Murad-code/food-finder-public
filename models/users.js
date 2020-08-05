@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please add your email']
   },
   favourites: {
-    type: [String],
+    type: [],
     required: [true, 'Need businesses ID']
   }
 });

@@ -44,12 +44,9 @@ export const Business = (props) => {
       curr = res.data.favouritesId[0].favourites;
       setUserStatus(true);
 
-      // Gets the users favourites in db and updates favourites state
-      // setFavourites((prevState) => curr);
-
       // Checking if business is already stored in users favourites
       for (let i = 0; i < curr.length; i++) {
-        if (business === curr[i]) {
+        if (business.id === curr[i].id) {
           return;
         }
       }
@@ -82,7 +79,7 @@ export const Business = (props) => {
           </div>
           <div className="title-favourite">
             <h2>{business.name}</h2>
-            {isLoggedIn ? <StarButton business={business.id} /> : null}
+            {isLoggedIn ? <StarButton business={business} /> : null}
           </div>
           <div className="Business-information">
             <div className="Business-address">

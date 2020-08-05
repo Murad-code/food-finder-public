@@ -23,21 +23,21 @@ export const FavBusiness = (props) => {
         return (
           <div className="Business">
             <div className="image-container">
-              <img src={business.image_url} alt="" />
+              <img src={business.imageSrc} alt="" />
             </div>
             <div className="title-favourite">
               <h2>{business.name}</h2>
             </div>
             <div className="Business-information">
               <div className="Business-address">
-                <p>{business.location.address1}</p>
-                <p>{business.location.city}</p>
-                <p>{business.location.zip_code}</p>
+                <p>{business.address}</p>
+                <p>{business.city}</p>
+                <p>{business.zipCode}</p>
               </div>
               <div className="Business-reviews">
-                <h3>{business.categories[0].title}</h3>
+                <h3>{business.category}</h3>
                 <h3 className="rating">{business.rating}</h3>
-                <p>{business.review_count}</p>
+                <p>{business.reviewCount}</p>
               </div>
             </div>
           </div>

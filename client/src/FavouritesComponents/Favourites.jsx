@@ -14,24 +14,8 @@ export const Favourites = (props) => {
     const favourites = await axios.post("/favourites", { email: email });
     const idList = favourites.data.favouritesId[0].favourites;
     console.log(idList);
-    try {
-      console.log("in try statement");
-      const map = await Promise.all(idList.map(
-         (businessId) =>  search(businessId)
-      ))
-      console.log(map); 
-      setBusiness(map);
-    } catch (err) {
-      console.log("in catch statement");
-    }
+    setBusiness(idList);
   };
-
-  const search = async(businessId) => {
-    console.log('in search function')
-  const response = await axios.post("/searchById", { id: businessId });
-  console.log(response.data.business);
-  return response.data.business;
-}
 
   const [business, setBusiness] = useState(() => getBusiness());
 

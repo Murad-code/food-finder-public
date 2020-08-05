@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { yelp, yelpId } = require('../controllers/yelp.js');
+const { yelp } = require('../controllers/yelp.js');
 const { addFavourites, getFavourites, updateFavourites } = require('../controllers/favourites');
 
 router
@@ -19,10 +19,5 @@ router
 router
     .route('/search')
     .post(yelp)
-
-router
-    .route('/searchById')
-    .post(yelpId)
-
 
 module.exports = router;
