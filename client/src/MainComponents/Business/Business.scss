@@ -2,15 +2,17 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin: 4.4rem 10%;
+  margin: 4rem 6%;
 }
-
+  
 .Business {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 16.66rem;
   margin: 0 0.5rem 2.3rem 0.5rem;
+  background-color: white;
+  padding: 1.5rem;
 
   .image-container {
     height: 16.66rem;
