@@ -5,6 +5,7 @@ import "./FavBusiness.scss";
 
 export const FavBusiness = (props) => {
   const { email } = useContext(LoginContext);
+  const [loading, setLoading] = useState(false);
 
   const getBusiness = async () => {
     try {
@@ -12,7 +13,9 @@ export const FavBusiness = (props) => {
       const idList = favourites.data.favouritesId[0].favourites;
 
       setBusiness(idList);
+      setLoading(true);
     } catch (err) {
+      setLoading(true);
       return;
     }
   };
@@ -56,7 +59,8 @@ export const FavBusiness = (props) => {
 
   return (
     <div id="Fav-Business" className="Fav-BusinessList">
-      {business.length !== undefined ? <BusinessComponent /> : <Empty />}
+      {loading === true ? 
+      business.length !== undefined ? <BusinessComponent /> : <Empty /> : null}
     </div>
   );
 };
