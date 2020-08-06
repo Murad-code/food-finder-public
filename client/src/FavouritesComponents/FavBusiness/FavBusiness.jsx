@@ -6,10 +6,20 @@ import "./FavBusiness.scss";
 export const FavBusiness = (props) => {
   const { email } = useContext(LoginContext);
 
+  const getBusiness = async () => {
+    console.log("in getBusiness");
+    const favourites = await axios.post("/favourites", { email: email });
+    const idList = favourites.data.favouritesId[0].favourites;
+    console.log(idList);
+    setBusiness(idList);
+  };
+
+  const [business, setBusiness] = useState(() => getBusiness());
+
   const BusinessComponent = (props) => {
     console.log("in BusinessComponent function");
-    console.log("business length: " + props.business.length);
-    if (props.business.length === undefined) {
+    console.log("business length: " + business.length);
+    if (business.length === undefined) {
       console.log("in if statement");
       return (
         <div>
@@ -18,8 +28,8 @@ export const FavBusiness = (props) => {
       );
     } else {
       console.log("else statement");
-      console.log("business state: " + props.business);
-      return props.business.map((business) => {
+      console.log("business state: " + business);
+      return business.map((business) => {
         return (
           <div className="Business">
             <div className="image-container">
@@ -57,7 +67,7 @@ export const FavBusiness = (props) => {
 
   return (
     <div id="Fav-Business" className="Fav-BusinessList">
-      <BusinessComponent business={props.business}/>
+      <BusinessComponent />
     </div>
   );
 };
