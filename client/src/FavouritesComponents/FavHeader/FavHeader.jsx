@@ -1,14 +1,12 @@
 import React, { useState, useContext } from "react";
 import "./FavHeader.scss";
-// import { ReactComponent as ProfileIcon } from "./ProfileIcon.svg";
-import axios from "axios";
 import { GoogleLogout } from "react-google-login";
 import { LoginContext } from "../../context/LoginState";
 
 export const FavHeader = (props) => {
   const [dropdown, setDropdown] = useState(false);
 
-  const { isLoggedIn, setLogIn, name, email, imageUrl } = useContext(
+  const { isLoggedIn, setLogIn, name, imageUrl } = useContext(
     LoginContext
   );
 
@@ -22,11 +20,6 @@ export const FavHeader = (props) => {
   const back = () => {
     props.setFavouritesStatus();
   }
-  // const loadFavourites = async () => {
-  //   await axios.post("/favourites", { email: email });
-
-  //   // Do stuff here ...
-  // };
 
   const Profile = (props) => {
     return <div className="Fav-Profile">{isLoggedIn && props.children}</div>;
@@ -44,7 +37,7 @@ export const FavHeader = (props) => {
     return (
       <>
         <img
-          src={imageUrl}
+          src={imageUrl} alt="img"
           className="ProfileButton"
           onClick={() => setDropdown(!dropdown)}
         />

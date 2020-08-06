@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-import Yelp from "../util/Yelp";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { Business } from "./Business/Business";
 import { Header } from "./Header/Header";

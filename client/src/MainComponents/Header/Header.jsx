@@ -1,14 +1,13 @@
 import React, { useState, useContext } from "react";
 import "./Header.scss";
 // import { ReactComponent as ProfileIcon } from "./ProfileIcon.svg";
-import axios from "axios";
 import { GoogleLogout } from "react-google-login";
 import { LoginContext } from "../../context/LoginState";
 
 export const Header = (props) => {
   const [dropdown, setDropdown] = useState(false);
 
-  const { isLoggedIn, setLogIn, name, email, imageUrl } = useContext(
+  const { isLoggedIn, setLogIn, name, imageUrl } = useContext(
     LoginContext
   );
 
@@ -38,8 +37,8 @@ export const Header = (props) => {
     return (
       <>
         <img
-          // icon={<ProfileIcon />}
           src={imageUrl}
+          alt="img"
           className="ProfileButton"
           onClick={() => setDropdown(!dropdown)}
         />

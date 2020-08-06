@@ -7,11 +7,10 @@ export const FavBusiness = (props) => {
   const { email } = useContext(LoginContext);
 
   const getBusiness = async () => {
-    console.log("in getBusiness");
     try {
       const favourites = await axios.post("/favourites", { email: email });
       const idList = favourites.data.favouritesId[0].favourites;
-      console.log(idList);
+
       setBusiness(idList);
     } catch (err) {
       return;
@@ -21,9 +20,6 @@ export const FavBusiness = (props) => {
   const [business, setBusiness] = useState(() => getBusiness());
 
   const BusinessComponent = (props) => {
-    console.log("in BusinessComponent function");
-    console.log("business length: " + business.length);
-    console.log("business state: " + business);
     return business.map((business) => {
       return (
         <div className="Business">
@@ -51,7 +47,6 @@ export const FavBusiness = (props) => {
   };
 
   const Empty = () => {
-    console.log("In Empty function");
     return (
       <div className="Empty">
         <h1>Add favourites to see them here</h1>
